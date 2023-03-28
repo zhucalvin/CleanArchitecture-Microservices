@@ -1,8 +1,8 @@
-﻿using CleanArchitecture.WebUI.Filters;
+﻿using Client.WebUI.WebUI.Filters;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CleanArchitecture.WebUI.Controllers;
+namespace Client.WebUI.WebUI.Controllers;
 
 [ApiController]
 [ApiExceptionFilter]

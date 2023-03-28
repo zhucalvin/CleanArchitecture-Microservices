@@ -1,9 +1,9 @@
-﻿using CleanArchitecture.Application.Common.Interfaces;
-using CleanArchitecture.Infrastructure.Files;
-using CleanArchitecture.Infrastructure.Identity;
-using CleanArchitecture.Infrastructure.Persistence;
-using CleanArchitecture.Infrastructure.Persistence.Interceptors;
-using CleanArchitecture.Infrastructure.Services;
+﻿using Client.WebUI.Application.Common.Interfaces;
+using Client.WebUI.Infrastructure.Files;
+using Client.WebUI.Infrastructure.Identity;
+using Client.WebUI.Infrastructure.Persistence;
+using Client.WebUI.Infrastructure.Persistence.Interceptors;
+using Client.WebUI.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

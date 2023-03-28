@@ -1,7 +1,7 @@
 using gRPC;
 using Grpc.Core;
 
-namespace gRPC.Services;
+namespace Services.Todo.gRPC.Services;
 public class GreeterService : Greeter.GreeterBase
 {
     private readonly ILogger<GreeterService> _logger;

@@ -1,4 +1,4 @@
-﻿namespace CleanArchitecture.Domain.Enums;
+﻿namespace Client.WebUI.Domain.Enums;
 
 public enum PriorityLevel
 {

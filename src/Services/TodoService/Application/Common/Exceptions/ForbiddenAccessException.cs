@@ -1,4 +1,4 @@
-﻿namespace CleanArchitecture.Application.Common.Exceptions;
+﻿namespace Services.Todo.Application.Common.Exceptions;
 
 public class ForbiddenAccessException : Exception
 {

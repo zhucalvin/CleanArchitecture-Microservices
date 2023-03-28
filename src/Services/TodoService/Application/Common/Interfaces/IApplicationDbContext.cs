@@ -1,7 +1,7 @@
-﻿using CleanArchitecture.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Services.Todo.Domain.Entities;
 
-namespace CleanArchitecture.Application.Common.Interfaces;
+namespace Services.Todo.Application.Common.Interfaces;
 
 public interface IApplicationDbContext
 {

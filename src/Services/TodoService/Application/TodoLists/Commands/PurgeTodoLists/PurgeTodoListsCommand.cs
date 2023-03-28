@@ -1,8 +1,8 @@
-﻿using CleanArchitecture.Application.Common.Interfaces;
-using CleanArchitecture.Application.Common.Security;
+﻿using Services.Todo.Application.Common.Interfaces;
+using Services.Todo.Application.Common.Security;
 using MediatR;
 
-namespace CleanArchitecture.Application.TodoLists.Commands.PurgeTodoLists;
+namespace Services.Todo.Application.TodoLists.Commands.PurgeTodoLists;
 
 [Authorize(Roles = "Administrator")]
 [Authorize(Policy = "CanPurge")]

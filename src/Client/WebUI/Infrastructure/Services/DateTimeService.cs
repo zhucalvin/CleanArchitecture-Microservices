@@ -1,6 +1,6 @@
-﻿using CleanArchitecture.Application.Common.Interfaces;
+﻿using Client.WebUI.Application.Common.Interfaces;
 
-namespace CleanArchitecture.Infrastructure.Services;
+namespace Client.WebUI.Infrastructure.Services;
 
 public class DateTimeService : IDateTime
 {

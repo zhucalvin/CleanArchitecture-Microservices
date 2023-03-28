@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace CleanArchitecture.Infrastructure.Persistence.Migrations
+namespace Client.WebUI.Infrastructure.Persistence.Migrations
 {
     public partial class InitialCreate : Migration
     {

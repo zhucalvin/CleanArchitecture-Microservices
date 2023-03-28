@@ -1,4 +1,4 @@
-﻿namespace CleanArchitecture.Domain.Exceptions;
+﻿namespace Client.WebUI.Domain.Exceptions;
 
 public class UnsupportedColourException : Exception
 {

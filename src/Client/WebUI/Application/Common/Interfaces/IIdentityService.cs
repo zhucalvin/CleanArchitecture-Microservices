@@ -1,6 +1,6 @@
-﻿using CleanArchitecture.Application.Common.Models;
+﻿using Client.WebUI.Application.Common.Models;
 
-namespace CleanArchitecture.Application.Common.Interfaces;
+namespace Client.WebUI.Application.Common.Interfaces;
 
 public interface IIdentityService
 {

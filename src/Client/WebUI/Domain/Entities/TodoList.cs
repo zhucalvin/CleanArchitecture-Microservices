@@ -1,4 +1,4 @@
-﻿namespace CleanArchitecture.Domain.Entities;
+﻿namespace Client.WebUI.Domain.Entities;
 
 public class TodoList : BaseAuditableEntity
 {

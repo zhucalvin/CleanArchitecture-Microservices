@@ -1,4 +1,4 @@
-﻿namespace CleanArchitecture.Application.Common.Exceptions;
+﻿namespace Client.WebUI.Application.Common.Exceptions;
 
 public class NotFoundException : Exception
 {

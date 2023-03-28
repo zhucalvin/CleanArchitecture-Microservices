@@ -1,8 +1,8 @@
-﻿using CleanArchitecture.Domain.Events;
+﻿using Client.WebUI.Domain.Events;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace CleanArchitecture.Application.TodoItems.EventHandlers;
+namespace Client.WebUI.Application.TodoItems.EventHandlers;
 
 public class TodoItemCreatedEventHandler : INotificationHandler<TodoItemCreatedEvent>
 {

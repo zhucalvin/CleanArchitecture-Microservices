@@ -1,6 +1,6 @@
-﻿global using CleanArchitecture.Domain.Common;
-global using CleanArchitecture.Domain.Entities;
-global using CleanArchitecture.Domain.Enums;
-global using CleanArchitecture.Domain.Events;
-global using CleanArchitecture.Domain.Exceptions;
-global using CleanArchitecture.Domain.ValueObjects;
+﻿global using Services.Todo.Domain.Common;
+global using Services.Todo.Domain.Entities;
+global using Services.Todo.Domain.Enums;
+global using Services.Todo.Domain.Events;
+global using Services.Todo.Domain.Exceptions;
+global using Services.Todo.Domain.ValueObjects;

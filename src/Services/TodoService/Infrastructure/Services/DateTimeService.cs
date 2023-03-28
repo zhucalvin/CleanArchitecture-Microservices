@@ -1,6 +1,6 @@
-﻿using CleanArchitecture.Application.Common.Interfaces;
+﻿using Services.Todo.Application.Common.Interfaces;
 
-namespace CleanArchitecture.Infrastructure.Services;
+namespace Services.Todo.Infrastructure.Services;
 
 public class DateTimeService : IDateTime
 {

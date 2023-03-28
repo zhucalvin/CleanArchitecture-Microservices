@@ -1,6 +1,6 @@
-﻿using CleanArchitecture.Application.Common.Interfaces;
-using CleanArchitecture.Infrastructure.Persistence;
-using CleanArchitecture.WebUI.Services;
+﻿using Client.WebUI.Application.Common.Interfaces;
+using Client.WebUI.Infrastructure.Persistence;
+using Client.WebUI.WebUI.Services;
 using Microsoft.AspNetCore.Mvc;
 using NSwag;
 using NSwag.Generation.Processors.Security;

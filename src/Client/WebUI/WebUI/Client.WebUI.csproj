@@ -17,7 +17,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <InternalsVisibleTo Include="CleanArchitecture.Application.IntegrationTests" />
+        <InternalsVisibleTo Include="Client.WebUI.Application.IntegrationTests" />
     </ItemGroup>
 
     <ItemGroup>

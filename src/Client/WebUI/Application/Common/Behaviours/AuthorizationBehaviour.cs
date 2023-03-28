@@ -1,10 +1,10 @@
 ﻿using System.Reflection;
-using CleanArchitecture.Application.Common.Exceptions;
-using CleanArchitecture.Application.Common.Interfaces;
-using CleanArchitecture.Application.Common.Security;
+using Client.WebUI.Application.Common.Exceptions;
+using Client.WebUI.Application.Common.Interfaces;
+using Client.WebUI.Application.Common.Security;
 using MediatR;
 
-namespace CleanArchitecture.Application.Common.Behaviours;
+namespace Client.WebUI.Application.Common.Behaviours;
 
 public class AuthorizationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : notnull
 {

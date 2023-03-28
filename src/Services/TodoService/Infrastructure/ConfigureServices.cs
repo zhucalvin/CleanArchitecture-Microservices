@@ -1,9 +1,9 @@
-﻿using CleanArchitecture.Application.Common.Interfaces;
-using CleanArchitecture.Infrastructure.Files;
-using CleanArchitecture.Infrastructure.Identity;
-using CleanArchitecture.Infrastructure.Persistence;
-using CleanArchitecture.Infrastructure.Persistence.Interceptors;
-using CleanArchitecture.Infrastructure.Services;
+﻿using Services.Todo.Application.Common.Interfaces;
+using Services.Todo.Infrastructure.Files;
+using Services.Todo.Infrastructure.Identity;
+using Services.Todo.Infrastructure.Persistence;
+using Services.Todo.Infrastructure.Persistence.Interceptors;
+using Services.Todo.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

@@ -7,7 +7,7 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["src/Services/TodoService/gRPC/gRPC.csproj", "src/Services/TodoService/gRPC/"]
+COPY ["src/Services/TodoService/gRPC/Services.Todo.gRPC.csproj", "src/Services/TodoService/gRPC/"]
 RUN dotnet restore "src/Services/TodoService/gRPC/gRPC.csproj"
 COPY . .
 WORKDIR "/src/src/Services/TodoService/gRPC"

@@ -1,4 +1,4 @@
-﻿namespace CleanArchitecture.Domain.ValueObjects;
+﻿namespace Client.WebUI.Domain.ValueObjects;
 
 public class Colour : ValueObject
 {

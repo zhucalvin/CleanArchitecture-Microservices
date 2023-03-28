@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
-using CleanArchitecture.Application.Common.Behaviours;
-using CleanArchitecture.Application.Common.Exceptions;
+using Client.WebUI.Application.Common.Behaviours;
+using Client.WebUI.Application.Common.Exceptions;
 using FluentValidation;
 using MediatR;
 

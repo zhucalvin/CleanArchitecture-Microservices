@@ -1,6 +1,6 @@
-﻿global using CleanArchitecture.Domain.Common;
-global using CleanArchitecture.Domain.Entities;
-global using CleanArchitecture.Domain.Enums;
-global using CleanArchitecture.Domain.Events;
-global using CleanArchitecture.Domain.Exceptions;
-global using CleanArchitecture.Domain.ValueObjects;
+﻿global using Client.WebUI.Domain.Common;
+global using Client.WebUI.Domain.Entities;
+global using Client.WebUI.Domain.Enums;
+global using Client.WebUI.Domain.Events;
+global using Client.WebUI.Domain.Exceptions;
+global using Client.WebUI.Domain.ValueObjects;

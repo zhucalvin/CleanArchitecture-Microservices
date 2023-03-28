@@ -1,7 +1,7 @@
-﻿using CleanArchitecture.Domain.Entities;
+﻿using Client.WebUI.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace CleanArchitecture.Application.Common.Interfaces;
+namespace Client.WebUI.Application.Common.Interfaces;
 
 public interface IApplicationDbContext
 {
