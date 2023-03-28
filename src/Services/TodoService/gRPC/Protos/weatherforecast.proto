@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/struct.proto";
+
+option csharp_namespace = "TodoService.gRPC";
+
+package weather;
+
+service ForecastService {
+  rpc GetWeatherForecast (NonParameters) returns (GetWeatherForecaseReply);
+}
+
+message GetWeatherForecaseReply {
+    repeated WeatherForecastContract WeatherForecasts = 1;
+}
+
+message WeatherForecastContract {
+    google.protobuf.Timestamp Date = 1;
+    google.protobuf.Int32Value TemperatureC = 2;
+    google.protobuf.Int32Value TemperatureF = 3;
+    string Summary = 4;
+}
+
+message NonParameters {}
