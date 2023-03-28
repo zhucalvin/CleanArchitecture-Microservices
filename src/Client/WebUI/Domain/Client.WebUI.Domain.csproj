@@ -2,8 +2,8 @@
 
     <PropertyGroup>
         <TargetFramework>net7.0</TargetFramework>
-        <RootNamespace>CleanArchitecture.Domain</RootNamespace>
-        <AssemblyName>CleanArchitecture.Domain</AssemblyName>
+        <RootNamespace>Client.WebUI.Domain</RootNamespace>
+        <AssemblyName>Client.WebUI.Domain</AssemblyName>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>

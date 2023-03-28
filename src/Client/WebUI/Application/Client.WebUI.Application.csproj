@@ -2,8 +2,8 @@
 
     <PropertyGroup>
         <TargetFramework>net7.0</TargetFramework>
-        <RootNamespace>CleanArchitecture.Application</RootNamespace>
-        <AssemblyName>CleanArchitecture.Application</AssemblyName>
+        <RootNamespace>Client.WebUI.Application</RootNamespace>
+        <AssemblyName>Client.WebUI.Application</AssemblyName>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
@@ -15,7 +15,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Domain\Domain.csproj" />
+        <ProjectReference Include="..\Domain\Client.WebUI.Domain.csproj" />
     </ItemGroup>
 
 </Project>

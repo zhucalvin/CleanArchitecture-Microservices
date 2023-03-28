@@ -12,8 +12,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Application\Application.csproj" />
-        <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
+        <ProjectReference Include="..\Application\Client.WebUI.Application.csproj" />
+        <ProjectReference Include="..\Infrastructure\Client.WebUI.Infrastructure.csproj" />
     </ItemGroup>
 
     <ItemGroup>
