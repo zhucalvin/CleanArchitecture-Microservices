@@ -11,7 +11,7 @@ public static class WeatherForecastExtensions
         GetWeatherForecaseReply resolvedReply = new();
         resolvedReply.WeatherForecasts.AddRange(toResolveForecasts.Select(toResolveForecast => new WeatherForecastContract
         {
-            Date = toResolveForecast.Date.ToTimestamp(),
+            Date = toResolveForecast.Date.ToUniversalTime().ToTimestamp(),
             TemperatureC = toResolveForecast.TemperatureC,
             TemperatureF = toResolveForecast.TemperatureF,
             Summary = toResolveForecast.Summary

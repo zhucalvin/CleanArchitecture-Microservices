@@ -19,5 +19,4 @@ public class WeatherForecastService : ForecastService.ForecastServiceBase
         var result = await _mediator.Send(new GetWeatherForecastsQuery());
         return await Task.FromResult(result.ResolveWeatherForecaseReply());
     }
-
 }
