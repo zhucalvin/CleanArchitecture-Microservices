@@ -8,8 +8,8 @@ namespace Services.Todo.gRPC.Services;
 
 public class WeatherForecastService : ForecastService.ForecastServiceBase
 {
-    private readonly IMediator _mediator;
-    public WeatherForecastService(IMediator mediator)
+    private readonly ISender _mediator;
+    public WeatherForecastService(ISender mediator)
     {
         _mediator = mediator;
     }

@@ -10,8 +10,8 @@ namespace Services.Todo.gRPC.Services;
 
 public class TodoListService : TodoItemList.TodoItemListBase
 {
-    private readonly IMediator _mediator;
-    public TodoListService(IMediator mediator)
+    private readonly ISender _mediator;
+    public TodoListService(ISender mediator)
     {
         _mediator = mediator;
     }

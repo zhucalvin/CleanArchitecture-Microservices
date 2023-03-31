@@ -1,5 +1,4 @@
-﻿using Google.Protobuf.WellKnownTypes;
-using Services.Todo.Application.WeatherForecasts.Queries.GetWeatherForecasts;
+﻿using Services.Todo.Application.WeatherForecasts.Queries.GetWeatherForecasts;
 using TodoService.gRPC;
 
 namespace Services.Todo.gRPC.Extensions;
@@ -11,7 +10,7 @@ public static class WeatherForecastExtensions
         GetWeatherForecaseReply resolvedReply = new();
         resolvedReply.WeatherForecasts.AddRange(toResolveForecasts.Select(toResolveForecast => new WeatherForecastContract
         {
-            Date = toResolveForecast.Date.ToUniversalTime().ToTimestamp(),
+            Date = toResolveForecast.Date.ConvertToTimestamp(),
             TemperatureC = toResolveForecast.TemperatureC,
             TemperatureF = toResolveForecast.TemperatureF,
             Summary = toResolveForecast.Summary

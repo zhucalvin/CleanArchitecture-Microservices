@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Client.WebUI.Application.Common.Interfaces;
+using MediatR;
 
 namespace Client.WebUI.Application.WeatherForecasts.Queries.GetWeatherForecasts;
 
@@ -6,20 +7,26 @@ public record GetWeatherForecastsQuery : IRequest<IEnumerable<WeatherForecast>>;
 
 public class GetWeatherForecastsQueryHandler : IRequestHandler<GetWeatherForecastsQuery, IEnumerable<WeatherForecast>>
 {
-    private static readonly string[] Summaries = new[]
+    private readonly IWeatherForecastService _weatherForecastService;
+    public GetWeatherForecastsQueryHandler(IWeatherForecastService weatherForecastService)
     {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
+        _weatherForecastService = weatherForecastService;
+    }
 
     public async Task<IEnumerable<WeatherForecast>> Handle(GetWeatherForecastsQuery request, CancellationToken cancellationToken)
     {
-        var rng = new Random();
+        var reply = _weatherForecastService.GetWeatherForecast();
 
-        return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+        var results = new List<WeatherForecast>();
+
+        results.AddRange(reply.WeatherForecasts.Select(r => new WeatherForecast
         {
-            Date = DateTime.Now.AddDays(index),
-            TemperatureC = rng.Next(-20, 55),
-            Summary = Summaries[rng.Next(Summaries.Length)]
-        });
+            Date = r.Date.ToDateTime(),
+            TemperatureC = r.TemperatureC ?? 0,
+            TemperatureF = r.TemperatureF ?? 0,
+            Summary = r.Summary
+        }));
+
+        return results;
     }
 }

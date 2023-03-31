@@ -4,10 +4,13 @@ using Client.WebUI.Infrastructure.Identity;
 using Client.WebUI.Infrastructure.Persistence;
 using Client.WebUI.Infrastructure.Persistence.Interceptors;
 using Client.WebUI.Infrastructure.Services;
+using Client.WebUI.Infrastructure.Services.Clients;
+using gRPC;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using TodoService.gRPC;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -44,12 +47,35 @@ public static class ConfigureServices
         services.AddTransient<IDateTime, DateTimeService>();
         services.AddTransient<IIdentityService, IdentityService>();
         services.AddTransient<ICsvFileBuilder, CsvFileBuilder>();
+        services.AddTransient<IWeatherForecastService, WeatherForecastService>();
 
         services.AddAuthentication()
             .AddIdentityServerJwt();
 
         services.AddAuthorization(options =>
             options.AddPolicy("CanPurge", policy => policy.RequireRole("Administrator")));
+
+        return services;
+    }
+
+    // https://learn.microsoft.com/en-us/aspnet/core/grpc/clientfactory?view=aspnetcore-7.0
+    public static IServiceCollection RegisterGrpcClients(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddGrpcClient<ForecastService.ForecastServiceClient>(o =>
+        {
+            o.Address = new Uri(configuration.GetValue<string>("TodoServiceEndpoint"));
+        });
+
+        services.AddGrpcClient<TodoItemList.TodoItemListClient>(o =>
+        {
+            o.Address = new Uri(configuration.GetValue<string>("TodoServiceEndpoint"));
+        });
+
+        services.AddGrpcClient<Greeter.GreeterClient>(o =>
+        {
+            o.Address = new Uri(configuration.GetValue<string>("TodoServiceEndpoint"));
+        });
+
 
         return services;
     }
