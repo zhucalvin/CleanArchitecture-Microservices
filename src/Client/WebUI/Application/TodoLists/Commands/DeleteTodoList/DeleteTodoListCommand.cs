@@ -1,8 +1,5 @@
-﻿using Client.WebUI.Application.Common.Exceptions;
-using Client.WebUI.Application.Common.Interfaces;
-using Client.WebUI.Domain.Entities;
+﻿using Client.WebUI.Application.Common.Interfaces;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace Client.WebUI.Application.TodoLists.Commands.DeleteTodoList;
 
@@ -10,26 +7,16 @@ public record DeleteTodoListCommand(int Id) : IRequest;
 
 public class DeleteTodoListCommandHandler : IRequestHandler<DeleteTodoListCommand>
 {
-    private readonly IApplicationDbContext _context;
+    private readonly ITodoListService _todoListService;
 
-    public DeleteTodoListCommandHandler(IApplicationDbContext context)
-    {
-        _context = context;
-    }
+    public DeleteTodoListCommandHandler(ITodoListService todoListService)
+    => _todoListService = todoListService;
 
     public async Task Handle(DeleteTodoListCommand request, CancellationToken cancellationToken)
     {
-        var entity = await _context.TodoLists
-            .Where(l => l.Id == request.Id)
-            .SingleOrDefaultAsync(cancellationToken);
-
-        if (entity == null)
+        await _todoListService.DeleteTodoListAsync(new gRPC.EntityIdRequest
         {
-            throw new NotFoundException(nameof(TodoList), request.Id);
-        }
-
-        _context.TodoLists.Remove(entity);
-
-        await _context.SaveChangesAsync(cancellationToken);
+            Id = request.Id
+        });
     }
 }

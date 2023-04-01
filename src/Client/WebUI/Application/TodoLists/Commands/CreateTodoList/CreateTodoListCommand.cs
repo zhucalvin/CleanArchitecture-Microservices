@@ -1,5 +1,4 @@
 ﻿using Client.WebUI.Application.Common.Interfaces;
-using Client.WebUI.Domain.Entities;
 using MediatR;
 
 namespace Client.WebUI.Application.TodoLists.Commands.CreateTodoList;
@@ -11,23 +10,17 @@ public record CreateTodoListCommand : IRequest<int>
 
 public class CreateTodoListCommandHandler : IRequestHandler<CreateTodoListCommand, int>
 {
-    private readonly IApplicationDbContext _context;
-
-    public CreateTodoListCommandHandler(IApplicationDbContext context)
-    {
-        _context = context;
-    }
+    private readonly ITodoListService _todoListService;
+    public CreateTodoListCommandHandler(ITodoListService todoListService)
+    => _todoListService = todoListService;
 
     public async Task<int> Handle(CreateTodoListCommand request, CancellationToken cancellationToken)
     {
-        var entity = new TodoList();
+        var reply = await _todoListService.CreateTodoListAsync(new gRPC.CreateTodoListRequest
+        {
+            Title = request.Title
+        });
 
-        entity.Title = request.Title;
-
-        _context.TodoLists.Add(entity);
-
-        await _context.SaveChangesAsync(cancellationToken);
-
-        return entity.Id;
+        return reply.Id ?? 0;
     }
 }

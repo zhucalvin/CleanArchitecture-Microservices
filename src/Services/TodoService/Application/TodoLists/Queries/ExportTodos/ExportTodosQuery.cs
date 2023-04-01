@@ -1,17 +1,17 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using Services.Todo.Application.Common.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Services.Todo.Application.Common.Interfaces;
 
 namespace Services.Todo.Application.TodoLists.Queries.ExportTodos;
 
-public record ExportTodosQuery : IRequest<ExportTodosVm>
+public record ExportTodosQuery : IRequest<List<TodoItemRecord>>
 {
     public int ListId { get; init; }
 }
 
-public class ExportTodosQueryHandler : IRequestHandler<ExportTodosQuery, ExportTodosVm>
+public class ExportTodosQueryHandler : IRequestHandler<ExportTodosQuery, List<TodoItemRecord>>
 {
     private readonly IApplicationDbContext _context;
     private readonly IMapper _mapper;
@@ -24,18 +24,13 @@ public class ExportTodosQueryHandler : IRequestHandler<ExportTodosQuery, ExportT
         _fileBuilder = fileBuilder;
     }
 
-    public async Task<ExportTodosVm> Handle(ExportTodosQuery request, CancellationToken cancellationToken)
+    public async Task<List<TodoItemRecord>> Handle(ExportTodosQuery request, CancellationToken cancellationToken)
     {
         var records = await _context.TodoItems
                 .Where(t => t.ListId == request.ListId)
                 .ProjectTo<TodoItemRecord>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 
-        var vm = new ExportTodosVm(
-            "TodoItems.csv",
-            "text/csv",
-            _fileBuilder.BuildTodoItemsFile(records));
-
-        return vm;
+        return records;
     }
 }

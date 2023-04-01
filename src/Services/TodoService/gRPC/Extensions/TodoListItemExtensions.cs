@@ -1,8 +1,9 @@
 ﻿using Google.Protobuf.Collections;
 using Services.Todo.Application.Common.Models;
 using Services.Todo.Application.TodoItems.Queries.GetTodoItemsWithPagination;
+using Services.Todo.Application.TodoLists.Queries.ExportTodos;
 using Services.Todo.Application.TodoLists.Queries.GetTodos;
-using TodoService.gRPC;
+using Services.Todo.gRPC.TodoService;
 
 namespace Services.Todo.gRPC.Extensions;
 
@@ -15,6 +16,19 @@ public static class TodoListItemExtensions
         resolvedReply.Lists.AddRange(toResolveReply.Lists.ResolveToDoListContracts());
 
         return resolvedReply;
+    }
+
+    public static RepeatedField<TodoListRecordContract> ResolveTodoListRecordContracts(this List<TodoItemRecord> toResolveRecords)
+    {
+        RepeatedField<TodoListRecordContract> resolvedRecords = new();
+
+        resolvedRecords.AddRange(toResolveRecords.Select(r => new TodoListRecordContract
+        {
+            Title = r.Title,
+            Done = r.Done
+        }));
+
+        return resolvedRecords;
     }
 
     public static RepeatedField<TodoListContract> ResolveToDoListContracts(this IReadOnlyCollection<TodoListDto> toResolveDTO)

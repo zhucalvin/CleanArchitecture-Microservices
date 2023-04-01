@@ -1,4 +1,5 @@
 ﻿using Client.WebUI.Application.Common.Interfaces;
+using Client.WebUI.Application.gRPC;
 using Client.WebUI.Infrastructure.Files;
 using Client.WebUI.Infrastructure.Identity;
 using Client.WebUI.Infrastructure.Persistence;
@@ -10,7 +11,6 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using TodoService.gRPC;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -48,6 +48,8 @@ public static class ConfigureServices
         services.AddTransient<IIdentityService, IdentityService>();
         services.AddTransient<ICsvFileBuilder, CsvFileBuilder>();
         services.AddTransient<IWeatherForecastService, WeatherForecastService>();
+        services.AddTransient<ITodoItemsService, TodoItemsService>();
+        services.AddTransient<ITodoListService, TodoListService>();
 
         services.AddAuthentication()
             .AddIdentityServerJwt();

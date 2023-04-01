@@ -2,7 +2,7 @@
 using MediatR;
 using Services.Todo.Application.WeatherForecasts.Queries.GetWeatherForecasts;
 using Services.Todo.gRPC.Extensions;
-using TodoService.gRPC;
+using Services.Todo.gRPC.WeatherForecastService;
 
 namespace Services.Todo.gRPC.Services;
 

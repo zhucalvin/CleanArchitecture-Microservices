@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using Client.WebUI.Application.Common.Interfaces;
+using Client.WebUI.Application.TodoItems.Extensions;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace Client.WebUI.Application.TodoLists.Queries.ExportTodos;
 
@@ -13,28 +12,25 @@ public record ExportTodosQuery : IRequest<ExportTodosVm>
 
 public class ExportTodosQueryHandler : IRequestHandler<ExportTodosQuery, ExportTodosVm>
 {
-    private readonly IApplicationDbContext _context;
     private readonly IMapper _mapper;
     private readonly ICsvFileBuilder _fileBuilder;
+    private readonly ITodoListService _todoListService;
 
-    public ExportTodosQueryHandler(IApplicationDbContext context, IMapper mapper, ICsvFileBuilder fileBuilder)
+    public ExportTodosQueryHandler(IMapper mapper, ICsvFileBuilder fileBuilder, ITodoListService todoListService)
     {
-        _context = context;
         _mapper = mapper;
         _fileBuilder = fileBuilder;
+        _todoListService = todoListService;
     }
 
     public async Task<ExportTodosVm> Handle(ExportTodosQuery request, CancellationToken cancellationToken)
     {
-        var records = await _context.TodoItems
-                .Where(t => t.ListId == request.ListId)
-                .ProjectTo<TodoItemRecord>(_mapper.ConfigurationProvider)
-                .ToListAsync(cancellationToken);
+        var reply = await _todoListService.GetTodoListRecordsAsync(new gRPC.TodoListRecordRequest { ListId = request.ListId });
 
         var vm = new ExportTodosVm(
             "TodoItems.csv",
             "text/csv",
-            _fileBuilder.BuildTodoItemsFile(records));
+            _fileBuilder.BuildTodoItemsFile(reply.Records.ResolveTodoListRecords()));
 
         return vm;
     }

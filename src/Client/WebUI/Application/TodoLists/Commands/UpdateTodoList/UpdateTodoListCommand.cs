@@ -1,6 +1,4 @@
-﻿using Client.WebUI.Application.Common.Exceptions;
-using Client.WebUI.Application.Common.Interfaces;
-using Client.WebUI.Domain.Entities;
+﻿using Client.WebUI.Application.Common.Interfaces;
 using MediatR;
 
 namespace Client.WebUI.Application.TodoLists.Commands.UpdateTodoList;
@@ -14,26 +12,17 @@ public record UpdateTodoListCommand : IRequest
 
 public class UpdateTodoListCommandHandler : IRequestHandler<UpdateTodoListCommand>
 {
-    private readonly IApplicationDbContext _context;
+    private readonly ITodoListService _todoListService;
 
-    public UpdateTodoListCommandHandler(IApplicationDbContext context)
-    {
-        _context = context;
-    }
+    public UpdateTodoListCommandHandler(ITodoListService todoListService)
+    => _todoListService = todoListService;
 
     public async Task Handle(UpdateTodoListCommand request, CancellationToken cancellationToken)
     {
-        var entity = await _context.TodoLists
-            .FindAsync(new object[] { request.Id }, cancellationToken);
-
-        if (entity == null)
+        await _todoListService.UpdateTodoListAsync(new gRPC.UpdateTodoListRequest
         {
-            throw new NotFoundException(nameof(TodoList), request.Id);
-        }
-
-        entity.Title = request.Title;
-
-        await _context.SaveChangesAsync(cancellationToken);
-
+            Id = request.Id,
+            Title = request.Title
+        });
     }
 }

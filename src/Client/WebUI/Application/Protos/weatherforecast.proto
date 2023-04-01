@@ -5,9 +5,9 @@ import "google/protobuf/empty.proto";
 import "google/protobuf/wrappers.proto";
 import "google/protobuf/struct.proto";
 
-option csharp_namespace = "TodoService.gRPC";
+option csharp_namespace = "Client.WebUI.Application.gRPC";
 
-package weather;
+package weather_services;
 
 service ForecastService {
   rpc GetWeatherForecast (NonParameters) returns (GetWeatherForecaseReply);

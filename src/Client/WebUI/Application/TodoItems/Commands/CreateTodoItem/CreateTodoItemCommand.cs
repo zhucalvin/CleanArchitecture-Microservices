@@ -1,6 +1,4 @@
 ﻿using Client.WebUI.Application.Common.Interfaces;
-using Client.WebUI.Domain.Entities;
-using Client.WebUI.Domain.Events;
 using MediatR;
 
 namespace Client.WebUI.Application.TodoItems.Commands.CreateTodoItem;
@@ -14,28 +12,19 @@ public record CreateTodoItemCommand : IRequest<int>
 
 public class CreateTodoItemCommandHandler : IRequestHandler<CreateTodoItemCommand, int>
 {
-    private readonly IApplicationDbContext _context;
+    private readonly ITodoItemsService _todoItemsService;
 
-    public CreateTodoItemCommandHandler(IApplicationDbContext context)
-    {
-        _context = context;
-    }
+    public CreateTodoItemCommandHandler(ITodoItemsService todoItemsService)
+    => _todoItemsService = todoItemsService;
 
     public async Task<int> Handle(CreateTodoItemCommand request, CancellationToken cancellationToken)
     {
-        var entity = new TodoItem
+        var reply = await _todoItemsService.CreateTodoItemAsync(new gRPC.CreateTodoItemRequest
         {
-            ListId = request.ListId,
             Title = request.Title,
-            Done = false
-        };
+            ListId = request.ListId
+        });
 
-        entity.AddDomainEvent(new TodoItemCreatedEvent(entity));
-
-        _context.TodoItems.Add(entity);
-
-        await _context.SaveChangesAsync(cancellationToken);
-
-        return entity.Id;
+        return reply.Id ?? 0;
     }
 }

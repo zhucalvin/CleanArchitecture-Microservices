@@ -1,7 +1,4 @@
-﻿using Client.WebUI.Application.Common.Exceptions;
-using Client.WebUI.Application.Common.Interfaces;
-using Client.WebUI.Domain.Entities;
-using Client.WebUI.Domain.Events;
+﻿using Client.WebUI.Application.Common.Interfaces;
 using MediatR;
 
 namespace Client.WebUI.Application.TodoItems.Commands.DeleteTodoItem;
@@ -10,28 +7,16 @@ public record DeleteTodoItemCommand(int Id) : IRequest;
 
 public class DeleteTodoItemCommandHandler : IRequestHandler<DeleteTodoItemCommand>
 {
-    private readonly IApplicationDbContext _context;
+    private readonly ITodoItemsService _todoItemsService;
 
-    public DeleteTodoItemCommandHandler(IApplicationDbContext context)
-    {
-        _context = context;
-    }
+    public DeleteTodoItemCommandHandler(ITodoItemsService todoItemsService)
+    => _todoItemsService = todoItemsService;
 
     public async Task Handle(DeleteTodoItemCommand request, CancellationToken cancellationToken)
     {
-        var entity = await _context.TodoItems
-            .FindAsync(new object[] { request.Id }, cancellationToken);
-
-        if (entity == null)
+        await _todoItemsService.DeleteTodoItemAsync(new gRPC.EntityIdRequest
         {
-            throw new NotFoundException(nameof(TodoItem), request.Id);
-        }
-
-        _context.TodoItems.Remove(entity);
-
-        entity.AddDomainEvent(new TodoItemDeletedEvent(entity));
-
-        await _context.SaveChangesAsync(cancellationToken);
+            Id = request.Id
+        });
     }
-
 }

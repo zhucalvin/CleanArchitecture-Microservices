@@ -6,7 +6,7 @@ using Services.Todo.Application.TodoItems.Commands.UpdateTodoItem;
 using Services.Todo.Application.TodoItems.Commands.UpdateTodoItemDetail;
 using Services.Todo.Application.TodoItems.Queries.GetTodoItemsWithPagination;
 using Services.Todo.gRPC.Extensions;
-using TodoService.gRPC;
+using Services.Todo.gRPC.TodoService;
 
 namespace Services.Todo.gRPC.Services;
 

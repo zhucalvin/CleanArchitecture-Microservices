@@ -1,18 +1,15 @@
 ﻿using Client.WebUI.Application.Common.Interfaces;
-using TodoService.gRPC;
+using Client.WebUI.Application.gRPC;
 
 namespace Client.WebUI.Infrastructure.Services.Clients;
 
 public class WeatherForecastService : IWeatherForecastService
 {
     private readonly ForecastService.ForecastServiceClient _client;
-    public WeatherForecastService(ForecastService.ForecastServiceClient client)
-    {
-        _client = client;
-    }
+    public WeatherForecastService(ForecastService.ForecastServiceClient client) => _client = client;
 
-    public GetWeatherForecaseReply GetWeatherForecast()
+    public async Task<GetWeatherForecaseReply> GetWeatherForecastAsync()
     {
-        return _client.GetWeatherForecast(new NonParameters());
+        return await _client.GetWeatherForecastAsync(new NonParameters());
     }
 }

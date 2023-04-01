@@ -1,6 +1,5 @@
-﻿using Client.WebUI.Application.Common.Exceptions;
-using Client.WebUI.Application.Common.Interfaces;
-using Client.WebUI.Domain.Entities;
+﻿using Client.WebUI.Application.Common.Interfaces;
+using Client.WebUI.Application.gRPC;
 using Client.WebUI.Domain.Enums;
 using MediatR;
 
@@ -19,27 +18,18 @@ public record UpdateTodoItemDetailCommand : IRequest
 
 public class UpdateTodoItemDetailCommandHandler : IRequestHandler<UpdateTodoItemDetailCommand>
 {
-    private readonly IApplicationDbContext _context;
-
-    public UpdateTodoItemDetailCommandHandler(IApplicationDbContext context)
-    {
-        _context = context;
-    }
+    private readonly ITodoItemsService _todoItemsService;
+    public UpdateTodoItemDetailCommandHandler(ITodoItemsService todoItemsService)
+    => _todoItemsService = todoItemsService;
 
     public async Task Handle(UpdateTodoItemDetailCommand request, CancellationToken cancellationToken)
     {
-        var entity = await _context.TodoItems
-            .FindAsync(new object[] { request.Id }, cancellationToken);
-
-        if (entity == null)
+        await _todoItemsService.UpdateTodoItemDetailsAsync(new gRPC.UpdateTodoItemDetailsRequest
         {
-            throw new NotFoundException(nameof(TodoItem), request.Id);
-        }
-
-        entity.ListId = request.ListId;
-        entity.Priority = request.Priority;
-        entity.Note = request.Note;
-
-        await _context.SaveChangesAsync(cancellationToken);
+            Id = request.Id,
+            ListId = request.ListId,
+            Priority = (PriorityLevelContract)Enum.Parse(typeof(PriorityLevelContract), request.Priority.ToString(), true),
+            Note = request.Note,
+        });
     }
 }

@@ -5,22 +5,34 @@ import "google/protobuf/empty.proto";
 import "google/protobuf/wrappers.proto";
 import "google/protobuf/struct.proto";
 
-option csharp_namespace = "TodoService.gRPC";
+option csharp_namespace = "Services.Todo.gRPC.TodoService";
 
 package TodoService;
 
-// The greeting service definition.
 service TodoItemList {
-  // Sends a greeting
   rpc GetTodoItemsWithPagination(TodoItemsWithPaginationRequest) returns (TodoItemsWithPaginationReply);
   rpc CreateTodoItem(CreateTodoItemRequest) returns (EntityIdReply);
   rpc UpdateTodoItem(UpdateTodoItemRequest) returns (Empty);  
   rpc UpdateTodoItemDetails(UpdateTodoItemDetailsRequest) returns (Empty);  
   rpc DeleteTodoItem(EntityIdRequest) returns (Empty);  
   rpc GetTodoList(Empty) returns (GetTodoListReply);
+  rpc GetTodoListRecords(TodoListRecordRequest) returns (TodoListRecordReply);
   rpc CreateTodoList(CreateTodoListRequest) returns (EntityIdReply);
   rpc UpdateTodoList(UpdateTodoListRequest) returns (Empty);
   rpc DeleteTodoList(EntityIdRequest) returns (Empty);
+}
+
+message TodoListRecordRequest {
+    google.protobuf.Int32Value ListId = 1;
+}
+
+message TodoListRecordReply {
+    repeated TodoListRecordContract Records = 1;
+}
+
+message TodoListRecordContract {
+    string Title = 1;
+    google.protobuf.BoolValue Done = 2;
 }
 
 message TodoItemsWithPaginationRequest {
