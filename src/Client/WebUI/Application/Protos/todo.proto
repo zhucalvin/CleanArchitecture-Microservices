@@ -1,0 +1,127 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/struct.proto";
+
+option csharp_namespace = "Client.WebUI.Application.gRPC";
+
+package TodoService;
+
+service TodoItemList {
+  rpc GetTodoItemsWithPagination(TodoItemsWithPaginationRequest) returns (TodoItemsWithPaginationReply);
+  rpc CreateTodoItem(CreateTodoItemRequest) returns (EntityIdReply);
+  rpc UpdateTodoItem(UpdateTodoItemRequest) returns (Empty);  
+  rpc UpdateTodoItemDetails(UpdateTodoItemDetailsRequest) returns (Empty);  
+  rpc DeleteTodoItem(EntityIdRequest) returns (Empty);  
+  rpc GetTodoList(Empty) returns (GetTodoListReply);
+  rpc GetTodoListRecords(TodoListRecordRequest) returns (TodoListRecordReply);
+  rpc CreateTodoList(CreateTodoListRequest) returns (EntityIdReply);
+  rpc UpdateTodoList(UpdateTodoListRequest) returns (Empty);
+  rpc DeleteTodoList(EntityIdRequest) returns (Empty);
+}
+
+message TodoListRecordRequest {
+    google.protobuf.Int32Value ListId = 1;
+}
+
+message TodoListRecordReply {
+    repeated TodoListRecordContract Records = 1;
+}
+
+message TodoListRecordContract {
+    string Title = 1;
+    google.protobuf.BoolValue Done = 2;
+}
+
+message TodoItemsWithPaginationRequest {
+    google.protobuf.Int32Value ListId = 1;
+    google.protobuf.Int32Value PageNumber = 2;
+    google.protobuf.Int32Value PageSize = 3;
+}
+
+message TodoItemsWithPaginationReply {
+    google.protobuf.Int32Value PageNumber = 1;
+    google.protobuf.Int32Value TotalPages = 2;
+    google.protobuf.Int32Value TotalCount = 3;
+    repeated TodoItemBriefContract TodoItems = 4;
+}
+
+message TodoItemBriefContract {
+    google.protobuf.Int32Value Id = 1;
+    google.protobuf.Int32Value ListId = 2;
+    string Title = 3;
+    google.protobuf.BoolValue Done = 4;
+}
+
+message TodoItemContract {
+    google.protobuf.Int32Value Id = 1;
+    google.protobuf.Int32Value ListId = 2;
+    string Title = 3;
+    google.protobuf.BoolValue Done = 4;
+    PriorityLevelContract Priority = 5;
+    string Note = 6;
+}
+
+message TodoListContract {
+    google.protobuf.Int32Value Id = 1;
+    string Title = 2;
+    string Colour = 3;
+    repeated TodoItemContract Items = 4;
+}
+
+message GetTodoListReply {
+    repeated LookupItemContract PriorityLevels = 1;
+    repeated TodoListContract Lists = 2;
+}
+
+message CreateTodoItemRequest {
+    google.protobuf.Int32Value ListId = 1;
+    string Title = 2;
+}
+
+message CreateTodoListRequest {
+    string Title = 1;
+}
+
+message UpdateTodoItemRequest {
+    google.protobuf.Int32Value Id = 1;
+    string Title = 2;
+    google.protobuf.BoolValue Done = 3;
+}
+
+message UpdateTodoItemDetailsRequest {
+    google.protobuf.Int32Value Id = 1;
+    google.protobuf.Int32Value ListId = 2;
+    PriorityLevelContract Priority = 3;
+    string Note = 4;
+}
+
+message UpdateTodoListRequest {
+    google.protobuf.Int32Value Id = 1;
+    string Title = 2;
+}
+
+message LookupItemContract {
+    google.protobuf.Int32Value Value = 1;
+    string Name = 2;
+}
+
+enum PriorityLevelContract
+{
+    NONE = 0;
+    LOW = 1;
+    MEDIUM = 2;
+    HIGH = 3;
+}
+
+message EntityIdRequest {
+    google.protobuf.Int32Value Id = 1;
+}
+
+message EntityIdReply {
+    google.protobuf.Int32Value Id = 1;
+}
+
+message Empty {}
